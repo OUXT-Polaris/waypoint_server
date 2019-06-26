@@ -13,22 +13,24 @@
 #define WAYPOINT_SERVER_WAYPOINT_H_INCLUDED
 
 #include <geometry_msgs/Pose.h>
+#include <usv_navigation_msgs/Waypoint.h>
 
 class Waypoint
 {
 public:
-    Waypoint(int index,std::string mission,geometry_msgs::Pose pose,std::string frame_id,
-        double lateral_tolerance, double longitudal_tolerance, double orientation_tolerance,
-        std::vector<int> next_waypoint_index);
+    Waypoint(uint8_t index,std::string mission,geometry_msgs::Pose pose,std::string frame_id,
+        double lateral_torelance, double longitudinal_torelance, double yaw_torelance,
+        std::vector<uint8_t> next_waypoint_index);
     ~Waypoint();
-    const int index;
+    const uint8_t index;
     const std::string mission;
     const geometry_msgs::Pose pose;
     const std::string frame_id;
-    const double lateral_tolerance;
-    const double longitudal_tolerance;
-    const double orientation_tolerance;
-    const std::vector<int> next_waypoint_index;
+    const double lateral_torelance;
+    const double longitudinal_torelance;
+    const double yaw_torelance;
+    const std::vector<uint8_t> next_waypoint_index;
+    usv_navigation_msgs::Waypoint toMsg();
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_H_INCLUDED

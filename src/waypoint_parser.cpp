@@ -28,7 +28,7 @@ void WaypointParser::parse(std::string json_path)
     BOOST_FOREACH (const ptree::value_type& child, pt.get_child("waypoints"))
     {
         const ptree& waypoint = child.second;
-        boost::optional<int> index = waypoint.get_optional<int>("index");
+        boost::optional<uint8_t> index = waypoint.get_optional<uint8_t>("index");
         if(!index)
         {
             ROS_ERROR_STREAM("failed to parse waypoint index");
@@ -68,7 +68,7 @@ void WaypointParser::parse(std::string json_path)
         {
             ROS_ERROR_STREAM("failed to parse frame_id");
         }
-        boost::optional<std::vector<int> > next_waypoint_index = getNextWaypointIndex(waypoint);
+        boost::optional<std::vector<uint8_t> > next_waypoint_index = getNextWaypointIndex(waypoint);
         if(!next_waypoint_index)
         {
             ROS_ERROR_STREAM("failed to parse next waypoint index");
@@ -83,14 +83,14 @@ void WaypointParser::parse(std::string json_path)
     }
 }
 
-boost::optional<std::vector<int> > WaypointParser::getNextWaypointIndex(boost::property_tree::ptree tree)
+boost::optional<std::vector<uint8_t> > WaypointParser::getNextWaypointIndex(boost::property_tree::ptree tree)
 {
     using namespace boost::property_tree;
-    std::vector<int> ret;
+    std::vector<uint8_t> ret;
     BOOST_FOREACH (const ptree::value_type& child, tree.get_child("next_waypoint_index"))
     {
         const ptree& p = child.second;
-        boost::optional<int> x = p.get_optional<int>("");
+        boost::optional<uint8_t> x = p.get_optional<uint8_t>("");
         if(!x)
         {
             return boost::none;

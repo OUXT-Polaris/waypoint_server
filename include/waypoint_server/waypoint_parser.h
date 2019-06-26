@@ -37,7 +37,7 @@ private:
     std::vector<Waypoint> waypoints_;
     boost::optional<geometry_msgs::Point> getPosition(boost::property_tree::ptree tree);
     boost::optional<geometry_msgs::Quaternion> getOrientation(boost::property_tree::ptree tree);
-    boost::optional<std::vector<int> > getNextWaypointIndex(boost::property_tree::ptree tree);
+    boost::optional<std::vector<uint8_t> > getNextWaypointIndex(boost::property_tree::ptree tree);
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_PARSER_H_INCLUDED
