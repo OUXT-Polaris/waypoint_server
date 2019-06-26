@@ -23,7 +23,7 @@ include_directories(
 
 add_executable(waypoint_server_node src/waypoint_server_node.cpp src/waypoint_server.cpp)
 target_link_libraries(waypoint_server_node ${catkin_LIBRARIES})
-add_dependencies(waypoint_server_node rostate_machine_generate_messages_cpp)
+add_dependencies(waypoint_server_node rostate_machine_generate_messages_cpp usv_navigation_msgs_generate_messages_cpp)
 
 # Install header files
 install(DIRECTORY include/${PROJECT_NAME}/
@@ -37,7 +37,7 @@ install(TARGETS waypoint_server_node
   RUNTIME DESTINATION bin
 )
 
-foreach(dir launch)
+foreach(dir launch data)
   install(DIRECTORY ${dir}/
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
 endforeach(dir)
