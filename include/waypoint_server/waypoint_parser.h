@@ -26,17 +26,45 @@
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Quaternion.h>
 
+/**
+ * @brief Waypoint parser
+ * 
+ */
 class WaypointParser
 {
 public:
     WaypointParser();
     ~WaypointParser();
+    /**
+     * @brief parse json file
+     * @param json_path filepath of the waypoint json file
+     */
     void parse(std::string json_path);
+    /**
+     * @brief get waypoints
+     * @return std::vector of the parsed waypoints
+     */
     std::vector<Waypoint> getWaypoints(){return waypoints_;}
 private:
+    /**
+     * @brief parsed waypoints
+     * 
+     */
     std::vector<Waypoint> waypoints_;
+    /**
+     * @brief parse json tree and get geometry_msgs::Point
+     * 
+     */
     boost::optional<geometry_msgs::Point> getPosition(boost::property_tree::ptree tree);
+    /**
+     * @brief parse json tree and get geometry_msgs::Quaternion
+     * 
+     */
     boost::optional<geometry_msgs::Quaternion> getOrientation(boost::property_tree::ptree tree);
+    /**
+     * @brief parse json tree and get next waypoint index
+     * 
+     */
     boost::optional<std::vector<uint8_t> > getNextWaypointIndex(boost::property_tree::ptree tree);
 };
 
