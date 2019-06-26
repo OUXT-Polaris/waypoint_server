@@ -6,13 +6,16 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rostate_machine
+  visualization_msgs
   usv_navigation_msgs
+  tf2_ros
+  tf2_geometry_msgs
 )
 
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES waypoint_server
-  CATKIN_DEPENDS roscpp rostate_machine usv_navigation_msgs
+  CATKIN_DEPENDS roscpp rostate_machine usv_navigation_msgs visualization_msgs tf2_ros tf2_geometry_msgs
 #  DEPENDS system_lib
 )
 

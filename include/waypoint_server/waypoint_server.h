@@ -15,6 +15,7 @@
 // Headers in ROS
 #include <ros/ros.h>
 #include <rostate_machine/event_client.h>
+#include <tf2_ros/transform_listener.h>
 
 // Headers in this package
 #include <waypoint_server/waypoint_parser.h>
@@ -67,6 +68,16 @@ private:
      * 
      */
     WaypointParser waypoint_parser_;
+    /**
+     * @brief transform buffer
+     * 
+     */
+    tf2_ros::Buffer tf_buffer_;
+    /**
+     * @brief transform listener
+     * 
+     */
+    tf2_ros::TransformListener tf_listener_;
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_SERVER_H_INCLUDED

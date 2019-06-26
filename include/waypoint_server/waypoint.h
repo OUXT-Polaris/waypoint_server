@@ -12,9 +12,30 @@
 #ifndef WAYPOINT_SERVER_WAYPOINT_H_INCLUDED
 #define WAYPOINT_SERVER_WAYPOINT_H_INCLUDED
 
-#include <geometry_msgs/Pose.h>
+// Headers in ROS
+#include <ros/ros.h>
+#include <geometry_msgs/PoseStamped.h>
 #include <usv_navigation_msgs/Waypoint.h>
+#include <tf2_ros/transform_listener.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
+// Headers in STL
+#include <memory>
+
+// Headers in Boost
+#include <boost/geometry/geometry.hpp>
+#include <boost/geometry/geometries/point_xy.hpp>
+#include <boost/geometry/geometries/polygon.hpp>
+#include <boost/geometry/geometries/box.hpp>
+
+using point = boost::geometry::model::d2::point_xy<double>;
+using polygon = boost::geometry::model::polygon<point>;
+using box = boost::geometry::model::box<point>;
+
+/**
+ * @brief Definition of the waypoint
+ * 
+ */
 class Waypoint
 {
 public:
@@ -75,6 +96,12 @@ public:
      * 
      */
     usv_navigation_msgs::Waypoint toMsg();
+    /**
+     * @brief check the pose was reached target waypoint or not 
+     * @retval true pose is reached the waypoint
+     * @retval false pose is not reached the waypoint
+     */
+    bool reached(geometry_msgs::PoseStamped pose,tf2_ros::Buffer tf_buffer);
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_H_INCLUDED

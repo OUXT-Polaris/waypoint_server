@@ -13,7 +13,7 @@
 #include <waypoint_server/waypoint_server.h>
 
 WaypointServer::WaypointServer(ros::NodeHandle nh,ros::NodeHandle pnh)
-    : event_client_(nh,pnh)
+    : event_client_(nh,pnh), tf_listener_(tf_buffer_)
 {
     nh_ = nh;
     pnh_ = pnh;

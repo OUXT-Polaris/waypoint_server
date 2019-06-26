@@ -38,3 +38,21 @@ usv_navigation_msgs::Waypoint Waypoint::toMsg()
     msg.yaw_torelance = yaw_torelance;
     return msg;
 }
+
+bool Waypoint::reached(geometry_msgs::PoseStamped pose,tf2_ros::Buffer tf_buffer)
+{
+    if(pose.header.frame_id != frame_id)
+    {
+        geometry_msgs::TransformStamped transform_stamped;
+        try
+        {
+            transform_stamped = tf_buffer.lookupTransform(frame_id, pose.header.frame_id ,ros::Time(0));
+        }
+        catch (tf2::TransformException &ex)
+        {
+            ROS_WARN("%s",ex.what());
+            return false;
+        }
+        tf2::doTransform(pose,pose,transform_stamped);
+    }
+}
