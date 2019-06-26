@@ -3,6 +3,6 @@
     <arg name="waypoint_json_path" default="$(find waypoint_server)/data/example.json"/>
 
     <node pkg="waypoint_server" type="waypoint_server_node" name="waypoint_server_node" output="log" respawn="false" respawn_delay="0">
-        <param name="waypoint_json_path" value=""/>
+        <param name="waypoint_json_path" value="$(arg waypoint_json_path)"/>
     </node>
 </launch>

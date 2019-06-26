@@ -16,11 +16,8 @@
 #include <ros/ros.h>
 #include <rostate_machine/event_client.h>
 
-// Headers in Boost
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/foreach.hpp>
-#include <boost/optional.hpp>
+// Headers in this package
+#include <waypoint_server/waypoint_parser.h>
 
 /**
  * @brief definition of the WaypointServer class
@@ -65,6 +62,11 @@ private:
      * 
      */
     std::string waypoint_json_path_;
+    /**
+     * @brief waypoint parser
+     * 
+     */
+    WaypointParser waypoint_parser_;
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_SERVER_H_INCLUDED

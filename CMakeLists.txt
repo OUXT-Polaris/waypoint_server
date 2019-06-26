@@ -21,7 +21,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(waypoint_server_node src/waypoint_server_node.cpp src/waypoint_server.cpp)
+add_executable(waypoint_server_node src/waypoint_server_node.cpp src/waypoint_server.cpp src/waypoint_parser.cpp src/waypoint.cpp)
 target_link_libraries(waypoint_server_node ${catkin_LIBRARIES})
 add_dependencies(waypoint_server_node rostate_machine_generate_messages_cpp usv_navigation_msgs_generate_messages_cpp)
 

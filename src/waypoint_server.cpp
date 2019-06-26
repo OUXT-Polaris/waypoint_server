@@ -18,6 +18,7 @@ WaypointServer::WaypointServer(ros::NodeHandle nh,ros::NodeHandle pnh)
     nh_ = nh;
     pnh_ = pnh;
     pnh_.param<std::string>("waypoint_json_path", waypoint_json_path_, "");
+    waypoint_parser_.parse(waypoint_json_path_);
 }
 
 WaypointServer::~WaypointServer()
