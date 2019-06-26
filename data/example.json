@@ -1,0 +1,9 @@
+[
+    {
+        "index" : 0,
+        "mission" : "go_straight",
+        "position" : {"x" : 0.0, "y" : 0.0, "z" : 0.0},
+        "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.0, "w" : 1.0},
+        "tolerance" : {"lateral" : 1.0, "longitudal" : 0.5, "orientation" : 0.1}
+    }
+]

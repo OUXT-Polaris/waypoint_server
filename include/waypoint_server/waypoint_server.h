@@ -16,6 +16,12 @@
 #include <ros/ros.h>
 #include <rostate_machine/event_client.h>
 
+// Headers in Boost
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/foreach.hpp>
+#include <boost/optional.hpp>
+
 /**
  * @brief definition of the WaypointServer class
  * 
