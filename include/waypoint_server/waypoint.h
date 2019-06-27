@@ -18,6 +18,8 @@
 #include <usv_navigation_msgs/Waypoint.h>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <visualization_msgs/MarkerArray.h>
+#include <quaternion_operation/quaternion_operation.h>
 
 // Headers in STL
 #include <memory>
@@ -92,16 +94,36 @@ public:
      */
     const std::vector<uint8_t> next_waypoint_index;
     /**
-     * @brief Convert to ROS Message
+     * @brief Convert to ROS message
      * 
      */
     usv_navigation_msgs::Waypoint toMsg();
+    /**
+     * @brief Convert to ROS marker message
+     * 
+     */
+    visualization_msgs::MarkerArray toMarkerMsg(std_msgs::ColorRGBA color);
     /**
      * @brief check the pose was reached target waypoint or not 
      * @retval true pose is reached the waypoint
      * @retval false pose is not reached the waypoint
      */
     bool reached(geometry_msgs::PoseStamped pose,tf2_ros::Buffer tf_buffer);
+private:
+    /**
+     * @brief calculate angle difference between two angles
+     * 
+     */
+    double getDiffAngle(double angle0,double angle1)
+    {
+        double ret;
+        double a0 = std::cos(angle0);
+        double a1 = std::sin(angle0);
+        double b0 = std::cos(angle1);
+        double b1 = std::sin(angle1);
+        ret = std::acos(a0*a1 + b0*b1);
+        return ret;
+    }
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_H_INCLUDED

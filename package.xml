@@ -15,18 +15,21 @@
   <build_depend>visualization_msgs</build_depend>
   <build_depend>tf2_ros</build_depend>
   <build_depend>tf2_geometry_msgs</build_depend>
+  <build_depend>quaternion_operation</build_depend>
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>rostate_machine</build_export_depend>
   <build_export_depend>usv_navigation_msgs</build_export_depend>
   <build_export_depend>visualization_msgs</build_export_depend>
   <build_export_depend>tf2_ros</build_export_depend>
   <build_export_depend>tf2_geometry_msgs</build_export_depend>
+  <build_export_depend>quaternion_operation</build_export_depend>
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rostate_machine</exec_depend>
   <exec_depend>usv_navigation_msgs</exec_depend>
   <exec_depend>visualization_msgs</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>tf2_geometry_msgs</exec_depend>
+  <exec_depend>quaternion_operation</exec_depend>
   <exec_depend>rosdoc_lite</exec_depend>
 
   <export>

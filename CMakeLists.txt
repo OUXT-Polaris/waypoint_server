@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   usv_navigation_msgs
   tf2_ros
   tf2_geometry_msgs
+  quaternion_operation
 )
 
 catkin_package(
