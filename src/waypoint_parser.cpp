@@ -37,6 +37,13 @@ void WaypointParser::parse(std::string json_path)
     using namespace boost::property_tree;
     ptree pt;
     read_json(json_path, pt);
+    boost::optional<uint8_t> start_waypoint_index = pt.get_optional<uint8_t>("start_waypoint_index");
+    if(!start_waypoint_index)
+    {
+        ROS_ERROR_STREAM("failed to parse start_waypoint_index");
+        std::exit(0);
+    }
+    start_waypoint_index_ = start_waypoint_index.get();
     BOOST_FOREACH (const ptree::value_type& child, pt.get_child("waypoints"))
     {
         const ptree& waypoint = child.second;
@@ -44,46 +51,55 @@ void WaypointParser::parse(std::string json_path)
         if(!index)
         {
             ROS_ERROR_STREAM("failed to parse waypoint index");
+            std::exit(0);
         }
         boost::optional<std::string> mission = waypoint.get_optional<std::string>("mission");
         if(!mission)
         {
             ROS_ERROR_STREAM("failed to parse mission");
+            std::exit(0);
         }
         boost::optional<geometry_msgs::Point> position = getPosition(waypoint);
         if(!position)
         {
             ROS_ERROR_STREAM("failed to parse position");
+            std::exit(0);
         }
         boost::optional<geometry_msgs::Quaternion> orientation = getOrientation(waypoint);
         if(!orientation)
         {
             ROS_ERROR_STREAM("failed to parse orientation");
+            std::exit(0);
         }
         boost::optional<double> lateral_tolerance = waypoint.get_optional<double>("tolerance.lateral");
         if(!lateral_tolerance)
         {
             ROS_ERROR_STREAM("failed to parse lateral tolerance.");
+            std::exit(0);
         }
         boost::optional<double> longitudal_tolerance = waypoint.get_optional<double>("tolerance.longitudal");
         if(!longitudal_tolerance)
         {
             ROS_ERROR_STREAM("failed to parse longitudal tolerance.");
+            std::exit(0);
         }
         boost::optional<double> yaw_tolerance = waypoint.get_optional<double>("tolerance.yaw");
         if(!yaw_tolerance)
         {
             ROS_ERROR_STREAM("failed to parse yaw tolerance.");
+            std::exit(0);
         }
         boost::optional<std::string> frame_id = waypoint.get_optional<std::string>("frame_id");
         if(!frame_id)
         {
             ROS_ERROR_STREAM("failed to parse frame_id");
+            std::exit(0);
         }
         boost::optional<std::vector<uint8_t> > next_waypoint_index = getNextWaypointIndex(waypoint);
         if(!next_waypoint_index)
         {
             ROS_ERROR_STREAM("failed to parse next waypoint index");
+            std::exit(0);
         }
         geometry_msgs::Pose pose;
         pose.position = position.get();

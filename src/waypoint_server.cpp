@@ -21,6 +21,7 @@ WaypointServer::WaypointServer(ros::NodeHandle nh,ros::NodeHandle pnh)
     pnh_ = pnh;
     pnh_.param<std::string>("waypoint_json_path", waypoint_json_path_, "");
     waypoint_parser_.parse(waypoint_json_path_);
+    waypoints_ = waypoint_parser_.getWaypoints();
     mission_event_client_.run();
     navigation_event_client_.run();
 }

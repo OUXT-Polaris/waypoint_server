@@ -88,6 +88,11 @@ private:
      * 
      */
     uint8_t current_waypoint_index_;
+    /**
+     * @brief parsed waypoint data
+     * 
+     */
+    std::map<uint8_t,Waypoint> waypoints_;
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_SERVER_H_INCLUDED

@@ -69,6 +69,11 @@ private:
      * 
      */
     boost::optional<std::vector<uint8_t> > getNextWaypointIndex(boost::property_tree::ptree tree);
+    /**
+     * @brief start waypoint index
+     * 
+     */
+    uint8_t start_waypoint_index_;
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_PARSER_H_INCLUDED
