@@ -25,10 +25,9 @@ std::map<uint8_t,Waypoint> WaypointParser::getWaypoints()
     std::map<uint8_t,Waypoint> ret;
     for(auto itr = waypoints_.begin(); itr != waypoints_.end(); itr++)
     {
-        //std::pair<uint8_t,Waypoint> p = std::make_pair<uint8_t,Waypoint>(itr->index,*itr);
-        //Waypoint w = *itr;
-        //ret[w.index] = w;
-        //ret[itr->index] = *itr;
+        Waypoint wp = *itr;
+        std::pair<uint8_t,Waypoint> pair = std::make_pair(wp.index,wp);
+        ret.insert(pair);
     }
     return ret;
 }
