@@ -13,12 +13,16 @@
 #include <waypoint_server/waypoint_server.h>
 
 WaypointServer::WaypointServer(ros::NodeHandle nh,ros::NodeHandle pnh)
-    : event_client_(nh,pnh), tf_listener_(tf_buffer_)
+    : mission_event_client_(nh,pnh,"mission_state_machine_node"), 
+    navigation_event_client_(nh,pnh,"navigation_state_machine_node"),
+    tf_listener_(tf_buffer_)
 {
     nh_ = nh;
     pnh_ = pnh;
     pnh_.param<std::string>("waypoint_json_path", waypoint_json_path_, "");
     waypoint_parser_.parse(waypoint_json_path_);
+    mission_event_client_.run();
+    navigation_event_client_.run();
 }
 
 WaypointServer::~WaypointServer()

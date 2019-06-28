@@ -49,10 +49,15 @@ private:
      */
     ros::NodeHandle pnh_;
     /**
-     * @brief event client for rostate_machine library
+     * @brief mission event client for rostate_machine library
      * 
     */
-    rostate_machine::EventClient event_client_;
+    rostate_machine::EventClient mission_event_client_;
+    /**
+     * @brief navigation event client for rostate_machine library
+     * 
+    */
+    rostate_machine::EventClient navigation_event_client_;
     /**
     * @brief function for checking waypoint reached or not
     * 
