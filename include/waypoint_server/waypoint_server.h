@@ -83,6 +83,11 @@ private:
      * 
      */
     tf2_ros::TransformListener tf_listener_;
+    /**
+     * @brief current waypoint index
+     * 
+     */
+    uint8_t current_waypoint_index_;
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_SERVER_H_INCLUDED

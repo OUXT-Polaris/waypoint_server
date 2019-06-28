@@ -26,6 +26,9 @@
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Quaternion.h>
 
+// Headers in STL
+#include <map>
+
 /**
  * @brief Waypoint parser
  * 
@@ -42,9 +45,9 @@ public:
     void parse(std::string json_path);
     /**
      * @brief get waypoints
-     * @return std::vector of the parsed waypoints
+     * @return std::map of the parsed waypoints
      */
-    std::vector<Waypoint> getWaypoints(){return waypoints_;}
+    std::map<uint8_t,Waypoint> getWaypoints();
 private:
     /**
      * @brief parsed waypoints
