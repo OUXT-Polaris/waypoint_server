@@ -16,6 +16,7 @@
 #include <ros/ros.h>
 #include <rostate_machine/event_client.h>
 #include <tf2_ros/transform_listener.h>
+#include <geometry_msgs/PoseStamped.h>
 
 // Headers in this package
 #include <waypoint_server/waypoint_parser.h>
@@ -38,6 +39,16 @@ public:
     */
     ~WaypointServer();
 private:
+    /**
+     * @brief Query current waypoint
+     * 
+     */
+    boost::optional<Waypoint>  getCurrentWaypoint();
+    /**
+     * @brief Query target waypoint
+     * 
+     */
+    boost::optional<Waypoint>  getTargetWaypoint(int target_waypoint_index);
     /**
      * @brief node handler
      * 
@@ -77,7 +88,7 @@ private:
      * @brief transform buffer
      * 
      */
-    tf2_ros::Buffer tf_buffer_;
+    std::shared_ptr<tf2_ros::Buffer> tf_buffer_ptr_;
     /**
      * @brief transform listener
      * 
@@ -92,7 +103,27 @@ private:
      * @brief parsed waypoint data
      * 
      */
-    std::map<uint8_t,Waypoint> waypoints_;
+    std::vector<Waypoint> waypoints_;
+    /**
+     * @brief ROS callback function for /current_pose topic
+     * 
+     */
+    void currentPoseCallback(const geometry_msgs::PoseStamped::ConstPtr msg);
+    /**
+     * @brief parameter for /current_pose topic name
+     * 
+     */
+    std::string current_pose_topic_;
+    /**
+     * @brief ROS Subscriber for current_pose topic
+     * 
+     */
+    ros::Subscriber current_pose_sub_;
+    /**
+     * @brief current pose of the robot.
+     * 
+     */
+    boost::optional<geometry_msgs::PoseStamped> current_pose_;
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_SERVER_H_INCLUDED

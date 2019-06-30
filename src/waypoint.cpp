@@ -58,14 +58,14 @@ usv_navigation_msgs::Waypoint Waypoint::toMsg()
     return msg;
 }
 
-bool Waypoint::reached(geometry_msgs::PoseStamped robot_pose,tf2_ros::Buffer tf_buffer)
+bool Waypoint::reached(geometry_msgs::PoseStamped robot_pose,std::shared_ptr<tf2_ros::Buffer> tf_buffer_ptr)
 {
     if(robot_pose.header.frame_id != frame_id)
     {
         geometry_msgs::TransformStamped transform_stamped;
         try
         {
-            transform_stamped = tf_buffer.lookupTransform(frame_id, robot_pose.header.frame_id ,ros::Time(0));
+            transform_stamped = tf_buffer_ptr->lookupTransform(frame_id, robot_pose.header.frame_id ,ros::Time(0));
         }
         catch (tf2::TransformException &ex)
         {

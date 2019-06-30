@@ -45,9 +45,26 @@ public:
     void parse(std::string json_path);
     /**
      * @brief get waypoints
-     * @return std::map of the parsed waypoints
+     * @return std::vector of the parsed waypoints
      */
-    std::map<uint8_t,Waypoint> getWaypoints();
+    std::vector<Waypoint> getWaypoints(){return waypoints_;};
+    /**
+     * @brief get start waypoint index
+     * @return start waypoint index
+     */
+    uint8_t getStartWaypointIndex(){return start_waypoint_index_;};
+
+    boost::optional<Waypoint> getStartWaypoint()
+    {
+        for(auto itr = waypoints_.begin(); itr != waypoints_.end(); itr++)
+        {
+            if(itr->index == start_waypoint_index_)
+            {
+                return *itr;
+            }
+        }
+        return boost::none;
+    }
 private:
     /**
      * @brief parsed waypoints

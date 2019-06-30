@@ -108,7 +108,7 @@ public:
      * @retval true pose is reached the waypoint
      * @retval false pose is not reached the waypoint
      */
-    bool reached(geometry_msgs::PoseStamped pose,tf2_ros::Buffer tf_buffer);
+    bool reached(geometry_msgs::PoseStamped pose,std::shared_ptr<tf2_ros::Buffer> tf_buffer_ptr);
 private:
     /**
      * @brief calculate angle difference between two angles

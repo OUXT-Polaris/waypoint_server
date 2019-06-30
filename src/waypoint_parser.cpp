@@ -20,18 +20,6 @@ WaypointParser::~WaypointParser()
 
 }
 
-std::map<uint8_t,Waypoint> WaypointParser::getWaypoints()
-{
-    std::map<uint8_t,Waypoint> ret;
-    for(auto itr = waypoints_.begin(); itr != waypoints_.end(); itr++)
-    {
-        Waypoint wp = *itr;
-        std::pair<uint8_t,Waypoint> pair = std::make_pair(wp.index,wp);
-        ret.insert(pair);
-    }
-    return ret;
-}
-
 void WaypointParser::parse(std::string json_path)
 {
     using namespace boost::property_tree;

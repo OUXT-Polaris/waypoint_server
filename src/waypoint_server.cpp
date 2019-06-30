@@ -15,13 +15,16 @@
 WaypointServer::WaypointServer(ros::NodeHandle nh,ros::NodeHandle pnh)
     : mission_event_client_(nh,pnh,"mission_state_machine_node"), 
     navigation_event_client_(nh,pnh,"navigation_state_machine_node"),
-    tf_listener_(tf_buffer_)
+    tf_buffer_ptr_(new tf2_ros::Buffer),
+    tf_listener_(*tf_buffer_ptr_)
 {
     nh_ = nh;
     pnh_ = pnh;
     pnh_.param<std::string>("waypoint_json_path", waypoint_json_path_, "");
+    pnh_.param<std::string>("current_pose_topic", current_pose_topic_, "/current_pose");
     waypoint_parser_.parse(waypoint_json_path_);
     waypoints_ = waypoint_parser_.getWaypoints();
+    current_waypoint_index_ = waypoint_parser_.getStartWaypointIndex();
     mission_event_client_.run();
     navigation_event_client_.run();
 }
@@ -31,7 +34,45 @@ WaypointServer::~WaypointServer()
 
 }
 
+void WaypointServer::currentPoseCallback(const geometry_msgs::PoseStamped::ConstPtr msg)
+{
+    current_pose_ = *msg;
+}
+
 boost::optional<rostate_machine::Event> WaypointServer::checkWaypointReached()
 {
+    boost::optional<rostate_machine::State> current_state = mission_event_client_.getCurrentState();
+    boost::optional<Waypoint> current_waypoint = getCurrentWaypoint();
+    if(current_state && current_waypoint && current_pose_)
+    {
+        bool reached = current_waypoint->reached(*current_pose_,tf_buffer_ptr_);
+        if(reached)
+        {
 
+        }
+    }
+}
+
+boost::optional<Waypoint>  WaypointServer::getTargetWaypoint(int target_waypoint_index)
+{
+    for(auto itr = waypoints_.begin(); itr != waypoints_.end(); itr++)
+    {
+        if(itr->index == target_waypoint_index)
+        {
+            return *itr;
+        }
+    }
+    return boost::none;
+}
+
+boost::optional<Waypoint> WaypointServer::getCurrentWaypoint()
+{
+    for(auto itr = waypoints_.begin(); itr != waypoints_.end(); itr++)
+    {
+        if(itr->index == current_waypoint_index_)
+        {
+            return *itr;
+        }
+    }
+    return boost::none;
 }
