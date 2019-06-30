@@ -25,6 +25,8 @@ WaypointServer::WaypointServer(ros::NodeHandle nh,ros::NodeHandle pnh)
     waypoint_parser_.parse(waypoint_json_path_);
     waypoints_ = waypoint_parser_.getWaypoints();
     current_waypoint_index_ = waypoint_parser_.getStartWaypointIndex();
+    mission_event_client_.registerCallback(std::bind(&WaypointServer::checkWaypointReached, this),"WaypointServer::checkWaypointReached");
+    navigation_event_client_.registerCallback(std::bind(&WaypointServer::loadNextWaypoint, this),"WaypointServer::loadNextWaypoint");
     mission_event_client_.run();
     navigation_event_client_.run();
 }
@@ -48,9 +50,43 @@ boost::optional<rostate_machine::Event> WaypointServer::checkWaypointReached()
         bool reached = current_waypoint->reached(*current_pose_,tf_buffer_ptr_);
         if(reached)
         {
-
+            rostate_machine::Event event;
+            event.trigger_event_name = "reach_waypoint";
+            return event;
         }
     }
+    return boost::none;
+}
+
+boost::optional<rostate_machine::Event> WaypointServer::loadNextWaypoint()
+{
+    boost::optional<rostate_machine::State> current_state = mission_event_client_.getCurrentState();
+    boost::optional<Waypoint> current_waypoint = getCurrentWaypoint();
+    if(current_state && current_waypoint && current_pose_)
+    {
+        bool reached = current_waypoint->reached(*current_pose_,tf_buffer_ptr_);
+        if(reached)
+        {
+            std::vector<uint8_t> next_waypoint_index = current_waypoint->next_waypoint_index;
+            bool state_matched = false;
+            for(auto itr = next_waypoint_index.begin(); itr != next_waypoint_index.end(); itr++)
+            {
+                boost::optional<Waypoint> next_waypoint_candidate = getTargetWaypoint(*itr);
+                if(next_waypoint_candidate && (next_waypoint_candidate->mission==current_waypoint->mission))
+                {
+                    state_matched = true;
+                    break;
+                }
+            }
+            if(state_matched)
+            {
+                rostate_machine::Event event;
+                event.trigger_event_name = "load_waypoint";
+                return event;
+            }
+        }
+    }
+    return boost::none;
 }
 
 boost::optional<Waypoint>  WaypointServer::getTargetWaypoint(int target_waypoint_index)

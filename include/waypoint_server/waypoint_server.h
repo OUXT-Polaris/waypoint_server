@@ -75,6 +75,11 @@ private:
     */
     boost::optional<rostate_machine::Event> checkWaypointReached();
     /**
+     * @brief function for loading next waypoint
+     * 
+     */
+    boost::optional<rostate_machine::Event> loadNextWaypoint();
+    /**
      * @brief path of the waypoint.json file
      * 
      */
