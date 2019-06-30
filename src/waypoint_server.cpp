@@ -25,10 +25,13 @@ WaypointServer::WaypointServer(ros::NodeHandle nh,ros::NodeHandle pnh)
     waypoint_parser_.parse(waypoint_json_path_);
     waypoints_ = waypoint_parser_.getWaypoints();
     current_waypoint_index_ = waypoint_parser_.getStartWaypointIndex();
+    waypoint_pub_ = pnh_.advertise<usv_navigation_msgs::Waypoint>("target_waypoint",1);
+    marker_pub_ = pnh_.advertise<visualization_msgs::MarkerArray>("target_waypoint/marker",1);
     mission_event_client_.registerCallback(std::bind(&WaypointServer::checkWaypointReached, this),"WaypointServer::checkWaypointReached");
     navigation_event_client_.registerCallback(std::bind(&WaypointServer::loadNextWaypoint, this),"WaypointServer::loadNextWaypoint");
     mission_event_client_.run();
     navigation_event_client_.run();
+    current_pose_sub_ = nh_.subscribe(current_pose_topic_,1,&WaypointServer::currentPoseCallback,this);
 }
 
 WaypointServer::~WaypointServer()
@@ -67,22 +70,31 @@ boost::optional<rostate_machine::Event> WaypointServer::loadNextWaypoint()
         bool reached = current_waypoint->reached(*current_pose_,tf_buffer_ptr_);
         if(reached)
         {
+            /**
+             * If reached the waypoint end
+             * 
+             */
+            if(current_waypoint->isWaypointEnd())
+            {
+                rostate_machine::Event event;
+                event.trigger_event_name = "reach_waypoint_end";
+                return event;
+            }
             std::vector<uint8_t> next_waypoint_index = current_waypoint->next_waypoint_index;
-            bool state_matched = false;
             for(auto itr = next_waypoint_index.begin(); itr != next_waypoint_index.end(); itr++)
             {
                 boost::optional<Waypoint> next_waypoint_candidate = getTargetWaypoint(*itr);
+                /**
+                 * @brief If the next waypoint is found
+                 * 
+                 */
                 if(next_waypoint_candidate && (next_waypoint_candidate->mission==current_waypoint->mission))
                 {
-                    state_matched = true;
-                    break;
+                    current_waypoint_index_ = next_waypoint_candidate->index;
+                    rostate_machine::Event event;
+                    event.trigger_event_name = "load_waypoint";
+                    return event;
                 }
-            }
-            if(state_matched)
-            {
-                rostate_machine::Event event;
-                event.trigger_event_name = "load_waypoint";
-                return event;
             }
         }
     }

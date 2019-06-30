@@ -129,6 +129,16 @@ private:
      * 
      */
     boost::optional<geometry_msgs::PoseStamped> current_pose_;
+    /**
+     * @brief ROS marker publisher
+     * 
+     */
+    ros::Publisher marker_pub_;
+    /**
+     * @brief ROS waypoint publisher
+     * 
+     */
+    ros::Publisher waypoint_pub_;
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_SERVER_H_INCLUDED

@@ -109,6 +109,22 @@ public:
      * @retval false pose is not reached the waypoint
      */
     bool reached(geometry_msgs::PoseStamped pose,std::shared_ptr<tf2_ros::Buffer> tf_buffer_ptr);
+    /**
+     * @brief Check the waypoint is end or not
+     * @retval true the waypoint is the waypoint end
+     * @retval false the waypoint is not the waypoint end
+     */
+    bool isWaypointEnd()
+    {
+        if(next_waypoint_index.size() == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    };
 private:
     /**
      * @brief calculate angle difference between two angles
