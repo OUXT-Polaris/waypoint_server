@@ -42,6 +42,11 @@ WaypointServer::~WaypointServer()
 void WaypointServer::currentPoseCallback(const geometry_msgs::PoseStamped::ConstPtr msg)
 {
     current_pose_ = *msg;
+    boost::optional<Waypoint> current_waypoint = getCurrentWaypoint();
+    if(current_waypoint)
+    {
+        
+    }
 }
 
 boost::optional<rostate_machine::Event> WaypointServer::checkWaypointReached()
@@ -51,12 +56,25 @@ boost::optional<rostate_machine::Event> WaypointServer::checkWaypointReached()
     if(current_state && current_waypoint && current_pose_)
     {
         bool reached = current_waypoint->reached(*current_pose_,tf_buffer_ptr_);
+        waypoint_pub_.publish(current_waypoint->toMsg());
         if(reached)
         {
+            std_msgs::ColorRGBA red;
+            red.r = 1.0;
+            red.g = 0.0;
+            red.b = 0.0;
+            red.a = 1.0;
+            marker_pub_.publish(current_waypoint->toMarkerMsg(red));
             rostate_machine::Event event;
             event.trigger_event_name = "reach_waypoint";
             return event;
         }
+        std_msgs::ColorRGBA green;
+        green.r = 0.0;
+        green.g = 1.0;
+        green.b = 0.0;
+        green.a = 1.0;
+        marker_pub_.publish(current_waypoint->toMarkerMsg(green));
     }
     return boost::none;
 }
