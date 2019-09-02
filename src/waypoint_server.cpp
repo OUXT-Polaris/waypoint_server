@@ -43,10 +43,7 @@ void WaypointServer::currentPoseCallback(const geometry_msgs::PoseStamped::Const
 {
     current_pose_ = *msg;
     boost::optional<Waypoint> current_waypoint = getCurrentWaypoint();
-    if(current_waypoint)
-    {
-        
-    }
+    return;
 }
 
 boost::optional<rostate_machine::Event> WaypointServer::checkWaypointReached()
