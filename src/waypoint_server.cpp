@@ -60,7 +60,7 @@ boost::optional<rostate_machine::Event> WaypointServer::checkWaypointReached()
             red.r = 1.0;
             red.g = 0.0;
             red.b = 0.0;
-            red.a = 1.0;
+            red.a = 0.3;
             marker_pub_.publish(current_waypoint->toMarkerMsg(red));
             rostate_machine::Event event;
             event.trigger_event_name = "reach_waypoint";
@@ -70,7 +70,7 @@ boost::optional<rostate_machine::Event> WaypointServer::checkWaypointReached()
         green.r = 0.0;
         green.g = 1.0;
         green.b = 0.0;
-        green.a = 1.0;
+        green.a = 0.3;
         marker_pub_.publish(current_waypoint->toMarkerMsg(green));
     }
     return boost::none;
