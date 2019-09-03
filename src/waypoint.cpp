@@ -38,9 +38,21 @@ visualization_msgs::MarkerArray Waypoint::toMarkerMsg(std_msgs::ColorRGBA color)
     pose_marker.pose = pose;
     pose_marker.scale.x = longitudinal_torelance;
     pose_marker.scale.y = lateral_torelance;
-    pose_marker.scale.z = 1.0;
+    pose_marker.scale.z = 0.1;
     pose_marker.color = color;
+    visualization_msgs::Marker text_marker;
+    text_marker.header.stamp = ros::Time::now();
+    text_marker.header.frame_id = frame_id;
+    text_marker.ns = "text_marker";
+    text_marker.type = text_marker.TEXT_VIEW_FACING;
+    text_marker.pose = pose;
+    text_marker.pose.position.z = text_marker.pose.position.z + 1.0;
+    text_marker.scale.x = 0.3;
+    text_marker.scale.y = 0.3;
+    text_marker.scale.z = 0.3;
+    text_marker.color = color;
     marker.markers.push_back(pose_marker);
+    marker.markers.push_back(text_marker);
     return marker;
 }
 

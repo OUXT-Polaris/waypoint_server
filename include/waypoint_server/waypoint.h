@@ -137,7 +137,7 @@ private:
         double a1 = std::sin(angle0);
         double b0 = std::cos(angle1);
         double b1 = std::sin(angle1);
-        ret = std::acos(a0*a1 + b0*b1);
+        ret = std::acos(a0*b0 + a1*b1);
         return ret;
     }
 };
