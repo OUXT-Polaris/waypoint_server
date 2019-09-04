@@ -46,11 +46,14 @@ visualization_msgs::MarkerArray Waypoint::toMarkerMsg(std_msgs::ColorRGBA color)
     text_marker.ns = "text_marker";
     text_marker.type = text_marker.TEXT_VIEW_FACING;
     text_marker.pose = pose;
-    text_marker.pose.position.z = text_marker.pose.position.z + 1.0;
-    text_marker.scale.x = 0.3;
-    text_marker.scale.y = 0.3;
-    text_marker.scale.z = 0.3;
+    text_marker.pose.position.z = text_marker.pose.position.z + 3.0;
+    text_marker.text = "Waypoint Index : " + std::to_string(index) + "\nYaw Torelance : " + std::to_string(yaw_torelance)
+        + "\nDiff Angle : " + std::to_string(diff_angle_);
+    text_marker.scale.x = 0.5;
+    text_marker.scale.y = 0.5;
+    text_marker.scale.z = 0.5;
     text_marker.color = color;
+    text_marker.color.a = 1.0;
     marker.markers.push_back(pose_marker);
     marker.markers.push_back(text_marker);
     return marker;
@@ -88,6 +91,7 @@ bool Waypoint::reached(geometry_msgs::PoseStamped robot_pose,std::shared_ptr<tf2
     }
     double target_yaw = quaternion_operation::convertQuaternionToEulerAngle(pose.orientation).z;
     double yaw = quaternion_operation::convertQuaternionToEulerAngle(robot_pose.pose.orientation).z;
+    diff_angle_ = getDiffAngle(yaw,target_yaw);
     polygon poly;
     double x0 = pose.position.x + 0.5*lateral_torelance*std::cos(yaw) + 0.5*longitudinal_torelance*std::sin(0.5*M_PI-yaw);
     double y0 = pose.position.y + 0.5*lateral_torelance*std::sin(yaw) - 0.5*longitudinal_torelance*std::cos(0.5*M_PI-yaw);
@@ -104,8 +108,7 @@ bool Waypoint::reached(geometry_msgs::PoseStamped robot_pose,std::shared_ptr<tf2
     point pt(robot_pose.pose.position.x, robot_pose.pose.position.y);
     if(boost::geometry::within(pt, poly))
     {
-        double diff_angle = getDiffAngle(yaw,target_yaw);
-        if(diff_angle < yaw_torelance)
+        if(diff_angle_ < yaw_torelance)
         {
             return true;
         }

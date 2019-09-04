@@ -27,7 +27,7 @@
             "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.864599031571, "w" : 0.502462450942},
             "tolerance" : {"lateral" : 1.5, "longitudal" : 1.0, "yaw" : 0.5},
             "frame_id" : "field",
-            "next_waypoint_index" : [3]
+            "next_waypoint_index" : []
         }
     ]
 }

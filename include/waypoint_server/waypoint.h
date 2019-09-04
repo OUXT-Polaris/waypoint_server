@@ -140,6 +140,7 @@ private:
         ret = std::acos(a0*b0 + a1*b1);
         return ret;
     }
+    double diff_angle_;
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_H_INCLUDED

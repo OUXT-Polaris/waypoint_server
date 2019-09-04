@@ -27,7 +27,7 @@ WaypointServer::WaypointServer(ros::NodeHandle nh,ros::NodeHandle pnh)
     current_waypoint_index_ = waypoint_parser_.getStartWaypointIndex();
     waypoint_pub_ = pnh_.advertise<usv_navigation_msgs::Waypoint>("target_waypoint",1);
     marker_pub_ = pnh_.advertise<visualization_msgs::MarkerArray>("target_waypoint/marker",1);
-    mission_event_client_.registerCallback(std::bind(&WaypointServer::checkWaypointReached, this),"WaypointServer::checkWaypointReached");
+    navigation_event_client_.registerCallback(std::bind(&WaypointServer::checkWaypointReached, this),"WaypointServer::checkWaypointReached");
     navigation_event_client_.registerCallback(std::bind(&WaypointServer::loadNextWaypoint, this),"WaypointServer::loadNextWaypoint");
     mission_event_client_.run();
     navigation_event_client_.run();
@@ -42,7 +42,6 @@ WaypointServer::~WaypointServer()
 void WaypointServer::currentPoseCallback(const geometry_msgs::PoseStamped::ConstPtr msg)
 {
     current_pose_ = *msg;
-    boost::optional<Waypoint> current_waypoint = getCurrentWaypoint();
     return;
 }
 
