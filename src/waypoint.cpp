@@ -46,7 +46,7 @@ visualization_msgs::MarkerArray Waypoint::toMarkerMsg(std_msgs::ColorRGBA color)
     text_marker.ns = "text_marker";
     text_marker.type = text_marker.TEXT_VIEW_FACING;
     text_marker.pose = pose;
-    text_marker.pose.position.z = text_marker.pose.position.z + 3.0;
+    text_marker.pose.position.z = text_marker.pose.position.z + 1.5;
     text_marker.text = "Waypoint Index : " + std::to_string(index) + "\nYaw Torelance : " + std::to_string(yaw_torelance)
         + "\nDiff Angle : " + std::to_string(diff_angle_);
     text_marker.scale.x = 0.5;
