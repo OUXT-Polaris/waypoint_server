@@ -7,7 +7,7 @@
             "mission" : "traverse_navigation_channel",
             "position" : {"x" : -10.1110439301, "y" : 20.2688369751, "z" : 0.0},
             "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.854589709019, "w" : 0.519303792821},
-            "tolerance" : {"lateral" : 1.5, "longitudal" : 2.0, "yaw" : 0.5},
+            "tolerance" : {"lateral" : 6.0, "longitudal" : 3.0, "yaw" : 0.5},
             "frame_id" : "field",
             "next_waypoint_index" : [1]
         },
@@ -16,7 +16,7 @@
             "mission" : "traverse_navigation_channel",
             "position" : {"x" : -20.0771446228, "y" : 40.2103347778, "z" : 0.0},
             "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.854589709019, "w" : 0.519303792821},
-            "tolerance" : {"lateral" : 1.5, "longitudal" : 1.5, "yaw" : 0.5},
+            "tolerance" : {"lateral" : 6.0, "longitudal" : 3.0, "yaw" : 0.5},
             "frame_id" : "field",
             "next_waypoint_index" : [2]
         },
@@ -25,7 +25,7 @@
             "mission" : "traverse_navigation_channel",
             "position" : {"x" : -30.0673046112, "y" : 60.2874298096, "z" : 0.0},
             "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.864599031571, "w" : 0.502462450942},
-            "tolerance" : {"lateral" : 1.5, "longitudal" : 1.0, "yaw" : 0.5},
+            "tolerance" : {"lateral" : 6.0, "longitudal" : 3.0, "yaw" : 0.5},
             "frame_id" : "field",
             "next_waypoint_index" : []
         }

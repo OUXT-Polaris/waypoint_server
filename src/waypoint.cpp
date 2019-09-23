@@ -80,7 +80,7 @@ bool Waypoint::reached(geometry_msgs::PoseStamped robot_pose,std::shared_ptr<tf2
         geometry_msgs::TransformStamped transform_stamped;
         try
         {
-            transform_stamped = tf_buffer_ptr->lookupTransform(frame_id, robot_pose.header.frame_id ,ros::Time(0));
+            transform_stamped = tf_buffer_ptr->lookupTransform(frame_id, robot_pose.header.frame_id ,ros::Time(0), ros::Duration(0.1));
         }
         catch (tf2::TransformException &ex)
         {

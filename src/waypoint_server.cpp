@@ -18,6 +18,7 @@ WaypointServer::WaypointServer(ros::NodeHandle nh,ros::NodeHandle pnh)
     tf_buffer_ptr_(new tf2_ros::Buffer),
     tf_listener_(*tf_buffer_ptr_)
 {
+    tf_buffer_ptr_->setUsingDedicatedThread(true);
     nh_ = nh;
     pnh_ = pnh;
     pnh_.param<std::string>("waypoint_json_path", waypoint_json_path_, "");
