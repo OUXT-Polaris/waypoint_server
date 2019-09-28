@@ -7,15 +7,15 @@
             "mission" : "traverse_navigation_channel",
             "position" : {"x" : -10.1110439301, "y" : 20.2688369751, "z" : 0.0},
             "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.854589709019, "w" : 0.519303792821},
-            "tolerance" : {"lateral" : 6.0, "longitudal" : 3.0, "yaw" : 0.5},
+            "tolerance" : {"lateral" : 6.0, "longitudal" : 3.0, "yaw" : 1.5},
             "frame_id" : "field",
             "next_waypoint_index" : [1]
         },
         {
             "index" : 1,
             "mission" : "traverse_navigation_channel",
-            "position" : {"x" : -20.0771446228, "y" : 40.2103347778, "z" : 0.0},
-            "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.854589709019, "w" : 0.519303792821},
+            "position" : {"x" : -41.6060371399, "y" : 65.1069488525, "z" : 0.0},
+            "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.895038450072, "w" : 0.445988982928},
             "tolerance" : {"lateral" : 6.0, "longitudal" : 3.0, "yaw" : 0.5},
             "frame_id" : "field",
             "next_waypoint_index" : [2]
@@ -23,8 +23,8 @@
         {
             "index" : 2,
             "mission" : "traverse_navigation_channel",
-            "position" : {"x" : -30.0673046112, "y" : 60.2874298096, "z" : 0.0},
-            "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.864599031571, "w" : 0.502462450942},
+            "position" : {"x" : -63.7461700439, "y" : 99.0027313232, "z" : 0.0},
+            "orientation" : {"x" : 0.0, "y" : 0.0, "z" : 0.900520250964, "w" : 0.434814072455},
             "tolerance" : {"lateral" : 6.0, "longitudal" : 3.0, "yaw" : 0.5},
             "frame_id" : "field",
             "next_waypoint_index" : []

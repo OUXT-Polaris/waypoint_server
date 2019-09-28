@@ -93,18 +93,19 @@ bool Waypoint::reached(geometry_msgs::PoseStamped robot_pose,std::shared_ptr<tf2
     double yaw = quaternion_operation::convertQuaternionToEulerAngle(robot_pose.pose.orientation).z;
     diff_angle_ = getDiffAngle(yaw,target_yaw);
     polygon poly;
-    double x0 = pose.position.x + 0.5*lateral_torelance*std::cos(yaw) + 0.5*longitudinal_torelance*std::sin(0.5*M_PI-yaw);
-    double y0 = pose.position.y + 0.5*lateral_torelance*std::sin(yaw) - 0.5*longitudinal_torelance*std::cos(0.5*M_PI-yaw);
+    double x0 = pose.position.x + 0.5*lateral_torelance*std::cos(target_yaw) + 0.5*longitudinal_torelance*std::sin(0.5*M_PI-target_yaw);
+    double y0 = pose.position.y + 0.5*lateral_torelance*std::sin(target_yaw) - 0.5*longitudinal_torelance*std::cos(0.5*M_PI-target_yaw);
     poly.outer().push_back(point(x0, y0));
-    double x1 = pose.position.x + 0.5*lateral_torelance*std::cos(yaw) - 0.5*longitudinal_torelance*std::sin(0.5*M_PI-yaw);
-    double y1 = pose.position.y + 0.5*lateral_torelance*std::sin(yaw) + 0.5*longitudinal_torelance*std::cos(0.5*M_PI-yaw);
+    double x1 = pose.position.x + 0.5*lateral_torelance*std::cos(target_yaw) - 0.5*longitudinal_torelance*std::sin(0.5*M_PI-target_yaw);
+    double y1 = pose.position.y + 0.5*lateral_torelance*std::sin(target_yaw) + 0.5*longitudinal_torelance*std::cos(0.5*M_PI-target_yaw);
     poly.outer().push_back(point(x1, y1));
-    double x2 = pose.position.x - 0.5*lateral_torelance*std::cos(yaw) - 0.5*longitudinal_torelance*std::sin(0.5*M_PI-yaw);
-    double y2 = pose.position.y - 0.5*lateral_torelance*std::sin(yaw) + 0.5*longitudinal_torelance*std::cos(0.5*M_PI-yaw);
+    double x2 = pose.position.x - 0.5*lateral_torelance*std::cos(target_yaw) - 0.5*longitudinal_torelance*std::sin(0.5*M_PI-target_yaw);
+    double y2 = pose.position.y - 0.5*lateral_torelance*std::sin(target_yaw) + 0.5*longitudinal_torelance*std::cos(0.5*M_PI-target_yaw);
     poly.outer().push_back(point(x2, y2));
-    double x3 = pose.position.x - 0.5*lateral_torelance*std::cos(yaw) + 0.5*longitudinal_torelance*std::sin(0.5*M_PI-yaw);
-    double y3 = pose.position.y - 0.5*lateral_torelance*std::sin(yaw) - 0.5*longitudinal_torelance*std::cos(0.5*M_PI-yaw);
+    double x3 = pose.position.x - 0.5*lateral_torelance*std::cos(target_yaw) + 0.5*longitudinal_torelance*std::sin(0.5*M_PI-target_yaw);
+    double y3 = pose.position.y - 0.5*lateral_torelance*std::sin(target_yaw) - 0.5*longitudinal_torelance*std::cos(0.5*M_PI-target_yaw);
     poly.outer().push_back(point(x3, y3));
+    poly.outer().push_back(point(x0, y0));
     point pt(robot_pose.pose.position.x, robot_pose.pose.position.y);
     if(boost::geometry::within(pt, poly))
     {
