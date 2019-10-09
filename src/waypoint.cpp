@@ -10,9 +10,9 @@
  */
 #include <waypoint_server/waypoint.h>
 
-Waypoint::Waypoint(uint8_t index,std::string mission,geometry_msgs::Pose pose,std::string frame_id,
+Waypoint::Waypoint(int16_t index,std::string mission,geometry_msgs::Pose pose,std::string frame_id,
     double lateral_torelance, double longitudinal_torelance, double yaw_torelance,
-    std::vector<uint8_t> next_waypoint_index) 
+    std::vector<int16_t> next_waypoint_index) 
         : index(index), mission(mission), pose(pose), frame_id(frame_id),
             lateral_torelance(lateral_torelance), longitudinal_torelance(longitudinal_torelance), yaw_torelance(yaw_torelance),
             next_waypoint_index(next_waypoint_index)
@@ -66,7 +66,10 @@ usv_navigation_msgs::Waypoint Waypoint::toMsg()
     msg.header.stamp = ros::Time::now();
     msg.pose = pose;
     msg.index = index;
-    msg.next_waypoint_index = next_waypoint_index;
+    for(auto itr=next_waypoint_index.begin(); itr!=next_waypoint_index.end(); itr++)
+    {
+        msg.next_waypoint_index.push_back(*itr);
+    }
     msg.longitudinal_torelance = longitudinal_torelance;
     msg.lateral_torelance = lateral_torelance;
     msg.yaw_torelance = yaw_torelance;

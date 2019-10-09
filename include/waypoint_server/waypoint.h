@@ -45,9 +45,9 @@ public:
      * @brief constructor of the Waypoint class
      * 
      */
-    Waypoint(uint8_t index,std::string mission,geometry_msgs::Pose pose,std::string frame_id,
+    Waypoint(int16_t index,std::string mission,geometry_msgs::Pose pose,std::string frame_id,
         double lateral_torelance, double longitudinal_torelance, double yaw_torelance,
-        std::vector<uint8_t> next_waypoint_index);
+        std::vector<int16_t> next_waypoint_index);
     /**
      * @brief destructor of the Waypoint class
      * 
@@ -57,7 +57,7 @@ public:
      * @brief waypoint index
      * 
      */
-    const uint8_t index;
+    const int16_t index;
     /**
      * @brief mission of the waypoint
      * 
@@ -92,7 +92,7 @@ public:
      * @brief next waypoint index
      * 
      */
-    const std::vector<uint8_t> next_waypoint_index;
+    const std::vector<int16_t> next_waypoint_index;
     /**
      * @brief Convert to ROS message
      * 

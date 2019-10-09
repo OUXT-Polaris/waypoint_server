@@ -103,7 +103,7 @@ private:
      * @brief current waypoint index
      * 
      */
-    uint8_t current_waypoint_index_;
+    int16_t current_waypoint_index_;
     /**
      * @brief parsed waypoint data
      * 

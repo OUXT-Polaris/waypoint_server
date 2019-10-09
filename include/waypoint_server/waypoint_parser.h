@@ -52,7 +52,7 @@ public:
      * @brief get start waypoint index
      * @return start waypoint index
      */
-    uint8_t getStartWaypointIndex(){return start_waypoint_index_;};
+    int16_t getStartWaypointIndex(){return start_waypoint_index_;};
 
     boost::optional<Waypoint> getStartWaypoint()
     {
@@ -85,12 +85,12 @@ private:
      * @brief parse json tree and get next waypoint index
      * 
      */
-    boost::optional<std::vector<uint8_t> > getNextWaypointIndex(boost::property_tree::ptree tree);
+    boost::optional<std::vector<int16_t> > getNextWaypointIndex(boost::property_tree::ptree tree);
     /**
      * @brief start waypoint index
      * 
      */
-    uint8_t start_waypoint_index_;
+    int16_t start_waypoint_index_;
 };
 
 #endif  //WAYPOINT_SERVER_WAYPOINT_PARSER_H_INCLUDED

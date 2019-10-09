@@ -95,7 +95,7 @@ boost::optional<rostate_machine::Event> WaypointServer::loadNextWaypoint()
                 event.trigger_event_name = "reach_waypoint_end";
                 return event;
             }
-            std::vector<uint8_t> next_waypoint_index = current_waypoint->next_waypoint_index;
+            std::vector<int16_t> next_waypoint_index = current_waypoint->next_waypoint_index;
             for(auto itr = next_waypoint_index.begin(); itr != next_waypoint_index.end(); itr++)
             {
                 boost::optional<Waypoint> next_waypoint_candidate = getTargetWaypoint(*itr);
